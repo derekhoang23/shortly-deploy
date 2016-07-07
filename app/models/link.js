@@ -1,17 +1,16 @@
 var db = require('../config');
 var crypto = require('crypto');
+var mongoose = require('mongoose');
 
 db.Url.on('init', function(model) {
-      var shasum = crypto.createHash('sha1');
-      shasum.update(model.get('url'));
-      model.set('code', shasum.digest('hex').slice(0, 5));
-    });
-
-
+  var shasum = crypto.createHash('sha1');
+  //this syntax needs to change
+  shasum.update(model.get('url'));
+  model.set('code', shasum.digest('hex').slice(0, 5));
 });
 
-////////////what do you wnat to call this
-module.exports = Link;
+
+module.exports = Url;
 
 
 

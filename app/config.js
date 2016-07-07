@@ -1,5 +1,6 @@
 var path = require('path');
 var mongoose = require('mongoose');
+var sesssions = require('mongoose-session');
 
 exports.Schema = mongoose.Schema;
 
@@ -27,8 +28,8 @@ exports.urlSchema = new Schema ({
   //timestamp?
 });
 urlSchema.plugin(autoIncrement.plugin, 'Url');
-var Url = connection.model('Url', urlSchema);
-urlSchema.method.shasum = function() {
+exports.Url = connection.model('Url', urlSchema);
+urlSchema.shasum = function() {
 
 };
 
@@ -38,6 +39,18 @@ exports.usersSchema = new Schema({
   password: String
   //timestamp?
 });
+exports.usersSchema.methods.comparePassword = function(attemptedPassword, callback) {
+  bcrypt.compare(attemptedPassword, this.find({}).select('password'), function(err, isMatch) { 
+    callback(isMatch);
+  });
+};
+exports.usersSchema.methods.hashPassword = function() {
+  var cipher = Promise.promisify(bcrypt.hash);
+  return cipher(this.find({}).select('password'), null, null).bind(this)
+    .then(function(hash) {
+      this.Model.update({'password': hash });
+    });
+};
 
 usersSchema.plugin(autoIncrement.plugin, 'User');
 exports.User = connection.model('User', usersSchema);
