@@ -36,6 +36,7 @@ module.exports = function(grunt) {
     eslint: {
       target: [
         // Add list of files to lint here
+        'Gruntfile.js', '/app/**/*.js'
       ]
     },
 
@@ -65,9 +66,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      prodServer: {
-      }
-    },
+      command: 'git add . && git commit -m "yooooooo"'
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -97,6 +97,9 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      // grunt.task.run(['shell:prodServer']);
+
+    
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -104,6 +107,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
       // add your production server task here
+    'shell:command'
   ]);
 
 
