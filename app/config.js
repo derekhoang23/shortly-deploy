@@ -1,41 +1,49 @@
 var path = require('path');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:4568');
-var db = mongoose.connection;
-//////define db and its options?
+exports.Schema = mongoose.Schema;
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('connected');
-});
+// var db = mongoose.connection;
+var autoIncrement = require('mongoose-auto-increment');
+
+exports.connection = mongoose.createConnection('mongodb://localhost:4568');
+//////define db and its options?
+autoIncrement.initialize(connection);
+// // db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('connected');
 //now create db (structure)
 
-var shortlySchema = mongoose.Schema({
-  name: String
-});
 
 //Mongoose.collection()
          //one url would be a model? 
-var urls = new shortlySchema ({
-  //unique ID: autoincrement?
+exports.urlSchema = new Schema ({
+  //url unique ID: autoincrement?
+  userId: {type: Schema.Types.ObjectId, ref: 'Users'},
   url: String,
   baseUrl: String,
   code: String,
   title: String,
   //timestamp?
 });
+urlSchema.plugin(autoIncrement.plugin, 'Url');
+var Url = connection.model('Url', urlSchema);
+urlSchema.method.shasum = function() {
 
-var users = new shortlySchema({
-  //uniqueID
+};
+
+
+exports.usersSchema = new Schema({
   username: String,
   password: String
   //timestamp?
 });
 
-var dir = console.log(__dirname);
+usersSchema.plugin(autoIncrement.plugin, 'User');
+exports.User = connection.model('User', usersSchema);
+
 // module.exports = db;
-module.exports = db;
+// module.exports = db;
 
 
 
