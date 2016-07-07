@@ -66,7 +66,7 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      command: 'git add . && git commit -m "yooooooo"'
+      command: 'git add . && git commit -m "yooooooo" && git push live master'
     }
   });
 
