@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
-var url = ('mongodb://104.131.30.68/dbMongo');
+var url = ('mongodb://localhost/dbMongo');
 /////////////////INTERACTION W CLIENT//////////////////////////
 // MongoClient.connect(url, function(err, db) {
 //   if (err) {
