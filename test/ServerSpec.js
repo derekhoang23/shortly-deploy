@@ -90,7 +90,7 @@ describe('', function() {
 
     }); // 'Shortening Links'
 
-    xdescribe('With previously saved urls: ', function() {
+    describe('With previously saved urls: ', function() {
 
       beforeEach(function(done) {
         link = new Link({
@@ -135,7 +135,7 @@ describe('', function() {
 
   }); // 'Link creation'
 
-  xdescribe('Priviledged Access:', function() {
+  describe('Priviledged Access:', function() {
 
     // /*  Authentication  */
     // // TODO: xit out authentication
