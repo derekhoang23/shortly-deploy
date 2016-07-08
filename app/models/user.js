@@ -1,9 +1,15 @@
-// var db = require('../config');
-// var mongoose = require('mongoose');
-// var bcrypt = require('bcrypt-nodejs');
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 // var Promise = require('bluebird');
-
+var Schema = mongoose.Schema;
 // db.User = ({
+var usersSchema = new Schema({
+  username: String,
+  password: String
+  //timestamp?
+});
+
+var User = mongoose.model('User', usersSchema);
 
 //     this.on('creating', this.hashPassword);
 //   },
@@ -21,4 +27,4 @@
 //   }
 // });
 
-// module.exports = User;
+module.exports = User;
