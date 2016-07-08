@@ -5,9 +5,9 @@ var crypto = require('crypto');
 //IS this line of code breaking thigns? 
 
 //sol: var linkSchema = mongoose.Schema({ userId: ...})
-var Schema = mongoose.Schema;
 
-var urlsSchema = new Schema ({
+
+var urlsSchema = mongoose.Schema ({
   // userId: {type: Schema.Types.ObjectId, ref: 'Users'},
   url: String,
   baseUrl: String,
@@ -16,12 +16,14 @@ var urlsSchema = new Schema ({
   visits: Number
 });
 
-var Link = mongoose.model('Url', urlsSchema);
+var Link = mongoose.model('Link', urlsSchema);
 
 urlsSchema.pre('save', function (next) {
   var shasum = crypto.createHash('sha1');
   shasum.update(this.url);
+  console.log('this', this);
   this.code = shasum.digest('hex').slice(0, 5);
+  console.log('this.code', this.code);
   next();
 });
 

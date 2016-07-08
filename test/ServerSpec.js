@@ -114,6 +114,8 @@ describe('', function() {
           .expect(200)
           .expect(function(res) {
             var secondCode = res.body.code;
+            console.log(secondCode);
+
             expect(secondCode).to.equal(firstCode);
           })
           .end(done);
@@ -171,7 +173,7 @@ describe('', function() {
 
   }); // 'Privileged Access'
 
-  xdescribe('Account Creation:', function() {
+  describe('Account Creation:', function() {
 
     it('Signup creates a new user', function(done) {
       request(app)
@@ -207,7 +209,7 @@ describe('', function() {
 
   }); // 'Account Creation'
 
-  xdescribe('Account Login:', function() {
+  describe('Account Login:', function() {
 
     beforeEach(function(done) {
       new User({
